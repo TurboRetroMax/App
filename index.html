@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#173b31" />
+    <meta name="description" content="Estimate your yearly carbon footprint with a place-aware electricity factor." />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Fieldnote — carbon, in context</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Fieldnote home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="presentation">
+              <path d="M29.8 8.2C19.4 8.4 11.2 11.1 9 18c-1.8 5.7 2.5 10.3 7.5 10.1 7.4-.3 11.8-9.7 13.3-19.9Z" />
+              <path d="M8.8 33.1c3.7-8.1 8.5-13.6 16.5-17.7" />
+            </svg>
+          </span>
+          <span class="brand-copy"><strong>fieldnote</strong><small>carbon, in context</small></span>
+        </a>
+        <div class="topbar-tools">
+          <span class="global-pill"><span></span> WORLDWIDE DATA</span>
+          <button class="button button-quiet install-button" id="install-button" type="button" hidden>Install app</button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="intro" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> SMALL STEPS, CLEARER PICTURE</p>
+            <h1 id="page-title">Carbon,<br /><em>in context.</em></h1>
+            <p class="intro-text">A personal footprint starts with the place you call home. Choose a location anywhere in the world, add a few everyday details, and see what shapes your estimate.</p>
+          </div>
+          <div class="intro-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="planet">
+              <svg viewBox="0 0 220 220" role="presentation">
+                <defs>
+                  <linearGradient id="planet-fill" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#b4d59e" />
+                    <stop offset="1" stop-color="#477a61" />
+                  </linearGradient>
+                  <clipPath id="planet-clip"><circle cx="110" cy="110" r="87" /></clipPath>
+                </defs>
+                <circle cx="110" cy="110" r="87" fill="url(#planet-fill)" />
+                <g clip-path="url(#planet-clip)" fill="none" stroke="#e0edcf" stroke-opacity=".55" stroke-width="1.5">
+                  <path d="M20 70c27-24 45-15 62-27s40-5 53-17 39-8 65 4M18 91c28-17 50-7 67-20s40-8 58-17 41-5 63 6M16 114c26-9 50 2 72-12s39-12 58-20 39-3 62 9M17 138c29 0 49 10 71-4s42-18 62-22 38 1 56 13M27 160c25 4 43 16 65 2s39-22 58-23 39 6 50 20" />
+                  <path d="M84 22c-17 22-18 44-9 63s13 38 4 58-6 39 13 65M111 22c-11 24-10 45 2 64s17 38 8 59-5 42 10 59M140 27c-9 20-5 43 9 63s19 36 9 58-1 42 17 55" />
+                  <path d="M40 47c18 1 30 9 34 21s-7 19-17 24-14 14-10 24 16 17 16 28-12 17-23 17M154 42c-8 10-10 20-4 29s19 12 22 23-8 21-17 23-14 12-10 22 20 19 19 31" />
+                </g>
+                <path d="M66 62c7-9 20-12 28-7 8 5 6 12 0 17-6 5-8 13-17 14-13 1-19-13-11-24Zm61-19c8-6 20-4 24 3 4 8-1 13-9 14s-12 9-20 6-5-17 5-23Zm-11 76c10-8 26-6 31 4 5 11-5 18-10 28-6 12-19 20-27 14-11-8-6-36 6-46Z" fill="#255644" fill-opacity=".75" />
+              </svg>
+            </div>
+            <span class="art-coordinate coordinate-top">0° 00' N</span>
+            <span class="art-coordinate coordinate-bottom">EARTH · ONE SHARED HOME</span>
+          </div>
+        </section>
+
+        <section class="location-panel panel" aria-labelledby="location-heading">
+          <div class="section-heading location-heading">
+            <div>
+              <p class="eyebrow">01 / YOUR PLACE</p>
+              <h2 id="location-heading">Where should we look?</h2>
+            </div>
+            <span class="step-mark" aria-hidden="true">01</span>
+          </div>
+
+          <div class="location-tools">
+            <form class="search-form" id="location-form" role="search" autocomplete="off">
+              <label class="sr-only" for="location-search">Search for a city or country</label>
+              <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.2 4.2" /></svg>
+              <input id="location-search" name="location" type="search" placeholder="Search any city or country" minlength="2" autocomplete="off" aria-controls="search-results" aria-expanded="false" />
+              <button class="search-submit" type="submit" aria-label="Search places">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </button>
+              <div class="search-results" id="search-results" role="listbox" aria-label="Place suggestions" hidden></div>
+            </form>
+            <button class="button button-dark locate-button" id="locate-button" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z" /><circle cx="12" cy="9" r="2.3" /></svg>
+              <span>Detect my area</span>
+            </button>
+          </div>
+          <p class="privacy-note"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="3.2" y="7.5" width="11.6" height="8" rx="1.8" /><path d="M5.8 7.5V5.2a3.2 3.2 0 0 1 6.4 0v2.3" /></svg> GPS runs only when you tap. Coordinates go to BigDataCloud to identify your place; you can search instead.</p>
+          <p class="location-status" id="location-status" role="status" aria-live="polite"></p>
+
+          <div class="area-card" id="area-card">
+            <div class="area-copy">
+              <div class="area-label"><span class="live-dot"></span><span id="area-eyebrow">GLOBAL REFERENCE</span></div>
+              <h3 id="place-name">Around the world</h3>
+              <p id="place-detail">Select your area to use its national electricity mix.</p>
+              <div class="grid-reading"><strong id="grid-intensity">473</strong><span>g CO₂e / kWh<br /><small id="grid-year">world average · 2024</small></span></div>
+              <p class="grid-comparison" id="grid-comparison">A global reference while you choose a place.</p>
+            </div>
+            <a class="area-map" id="map-link" href="https://www.openstreetmap.org/" target="_blank" rel="noreferrer" aria-label="Open selected area on OpenStreetMap">
+              <svg viewBox="0 0 360 190" aria-hidden="true">
+                <path class="map-river" d="M-10 113c39-31 58 23 90-8s49-51 80-19 51 33 76 7 52-50 94-31 32 4 45-7" />
+                <path d="M-12 40c41 16 66-23 102-6s35 55 74 49 56-38 96-20 51 3 111-16M-12 155c40 5 60-30 93-23s46 45 80 37 41-34 77-28 51 37 92 21 38-13 54-23" />
+                <path d="M40-9c8 32-19 56 4 84s43 37 36 67 0 46 20 62M126-12c-9 27-7 49 10 70s33 39 23 68-8 47 6 75M231-17c-5 36 15 48 27 72s3 50-12 70 1 42 20 63M314-12c-22 32-10 53 5 77s22 42 8 66-1 39 16 58" />
+                <circle class="map-point-halo" cx="216" cy="91" r="19" />
+                <circle class="map-point" cx="216" cy="91" r="5" />
+              </svg>
+              <span class="map-coordinates" id="map-coordinates">GLOBAL VIEW <span>↗</span></span>
+              <span class="map-card-label">LOCAL GRID<br />SIGNAL</span>
+            </a>
+          </div>
+          <p class="data-status" id="data-status" aria-live="polite">Loading the latest available grid factors…</p>
+        </section>
+
+        <section class="estimate-section" aria-label="Your footprint estimate">
+          <article class="total-card">
+            <div class="total-card-top">
+              <p class="eyebrow eyebrow-light">02 / YOUR ESTIMATE</p>
+              <span class="estimate-period">ONE PERSON · ONE YEAR</span>
+            </div>
+            <div class="total-layout">
+              <div class="total-copy">
+                <p class="total-label">Estimated annual footprint</p>
+                <div class="total-number"><strong id="footprint-total">3.5</strong><span>t <abbr title="carbon dioxide equivalent">CO₂e</abbr></span></div>
+                <p class="total-kg" id="footprint-kilos">3,514 kg CO₂e / year</p>
+              </div>
+              <div class="ring-wrap" aria-hidden="true">
+                <div class="breakdown-ring" id="breakdown-ring"><div class="ring-center"><span>YOUR</span><strong>mix</strong></div></div>
+              </div>
+            </div>
+            <div class="total-foot">
+              <p id="footprint-summary">A starting estimate from the details below. Adjust them to make it yours.</p>
+              <button class="share-button" id="share-button" type="button" aria-label="Share or copy your estimate">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.5" /><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="19" r="2.5" /><path d="m8.2 10.9 7.6-4.7M8.2 13.1l7.6 4.7" /></svg>
+              </button>
+            </div>
+            <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
+          </article>
+
+          <article class="breakdown-card panel" aria-labelledby="breakdown-heading">
+            <div class="section-heading compact-heading">
+              <div><p class="eyebrow">THE SHAPE OF IT</p><h2 id="breakdown-heading">Your yearly mix</h2></div>
+              <span class="breakdown-unit">kg CO₂e</span>
+            </div>
+            <div class="breakdown-list">
+              <div class="breakdown-row" data-category="electricity">
+                <div class="breakdown-row-top"><span class="category-name"><i class="category-dot dot-electricity"></i>Home electricity</span><strong id="electricity-amount">284 kg</strong></div>
+                <div class="bar-track"><span class="bar-fill fill-electricity" id="electricity-bar"></span></div>
+              </div>
+              <div class="breakdown-row" data-category="driving">
+                <div class="breakdown-row-top"><span class="category-name"><i class="category-dot dot-driving"></i>Driving</span><strong id="driving-amount">672 kg</strong></div>
+                <div class="bar-track"><span class="bar-fill fill-driving" id="driving-bar"></span></div>
+              </div>
+              <div class="breakdown-row" data-category="flights">
+                <div class="breakdown-row-top"><span class="category-name"><i class="category-dot dot-flights"></i>Flights</span><strong id="flights-amount">459 kg</strong></div>
+                <div class="bar-track"><span class="bar-fill fill-flights" id="flights-bar"></span></div>
+              </div>
+              <div class="breakdown-row" data-category="food">
+                <div class="breakdown-row-top"><span class="category-name"><i class="category-dot dot-food"></i>Food pattern</span><strong id="food-amount">2,100 kg</strong></div>
+                <div class="bar-track"><span class="bar-fill fill-food" id="food-bar"></span></div>
+              </div>
+            </div>
+            <p class="breakdown-note">This view shows only the activities entered. It is a useful starting point, not a complete emissions inventory.</p>
+          </article>
+        </section>
+
+        <section class="inputs-section panel" aria-labelledby="inputs-heading">
+          <div class="section-heading inputs-heading">
+            <div><p class="eyebrow">03 / EVERYDAY DETAILS</p><h2 id="inputs-heading">Make it yours.</h2><p class="section-subtitle">A few honest estimates are enough to see what moves the number.</p></div>
+            <span class="step-mark" aria-hidden="true">03</span>
+          </div>
+          <div class="inputs-grid">
+            <div class="input-card">
+              <div class="input-card-icon icon-home" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z" /></svg></div>
+              <div class="input-card-body">
+                <label for="electricity">Household electricity</label>
+                <p>Average use on your monthly bill</p>
+                <div class="field-with-unit"><input id="electricity" data-input type="number" min="0" max="5000" step="10" value="150" inputmode="decimal" /><span>kWh / month</span></div>
+                <div class="secondary-field"><label for="residents">People sharing this bill</label><input id="residents" data-input type="number" min="1" max="20" step="1" value="3" inputmode="numeric" /></div>
+              </div>
+            </div>
+            <div class="input-card">
+              <div class="input-card-icon icon-drive" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 11 1.6-4.2A2 2 0 0 1 8.5 5.5h7a2 2 0 0 1 1.9 1.3L19 11M3.5 12.5h17v5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1v-5Zm2.3 0 1.5-2h9.4l1.5 2M7 16h.01M17 16h.01" /></svg></div>
+              <div class="input-card-body">
+                <label for="driving">Personal driving</label>
+                <p>Your typical distance in a week</p>
+                <div class="field-with-unit"><input id="driving" data-input type="number" min="0" max="5000" step="5" value="80" inputmode="decimal" /><span>km / week</span></div>
+                <div class="secondary-field"><label for="vehicle">Vehicle type</label><select id="vehicle" data-input><option value="petrol">Petrol · average car</option><option value="diesel">Diesel · average car</option><option value="hybrid">Hybrid · average car</option><option value="electric">Electric · uses local grid</option></select></div>
+              </div>
+            </div>
+            <div class="input-card">
+              <div class="input-card-icon icon-flight" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 13 7.5-2.5L8 3.5a1 1 0 0 1 1.7-.8l5.1 6.2 4.8-1.6a1.8 1.8 0 0 1 2.2 1.1 1.8 1.8 0 0 1-1.1 2.2L3.9 16.1A1.5 1.5 0 0 1 2 15.2a1.7 1.7 0 0 1 1-2.2Z" /><path d="m7 17 2-1M12 19l2-1" /></svg></div>
+              <div class="input-card-body">
+                <label for="short-flights">Return flights</label>
+                <p>Rough count in a typical year</p>
+                <div class="flight-fields">
+                  <div class="field-with-unit"><input id="short-flights" data-input type="number" min="0" max="100" step="1" value="1" inputmode="numeric" /><span>short-haul</span></div>
+                  <div class="field-with-unit"><input id="long-flights" data-input type="number" min="0" max="100" step="1" value="0" inputmode="numeric" /><span>long-haul</span></div>
+                </div>
+                <p class="field-hint">The model uses typical route lengths, including aviation effects.</p>
+              </div>
+            </div>
+            <div class="input-card">
+              <div class="input-card-icon icon-food" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21c4.2-2.2 6.5-5.5 6.5-9.3A6.5 6.5 0 0 0 12 5.2a6.5 6.5 0 0 0-6.5 6.5c0 3.8 2.3 7.1 6.5 9.3Z" /><path d="M12 20.5c-.2-5 1.3-9.5 4.8-12.4M12 15.4c-1.2-2-2.7-3.4-4.5-4.1" /></svg></div>
+              <div class="input-card-body">
+                <label for="diet">Food pattern</label>
+                <p>A broad estimate for meals and food choices</p>
+                <div class="field-with-unit select-field"><select id="diet" data-input><option value="1300">Plant-forward</option><option value="2100" selected>Mixed diet</option><option value="3100">Meat most days</option></select><span id="diet-factor">~2.1 t / year</span></div>
+                <p class="field-hint">Use the closest fit; food estimates vary by region and diet.</p>
+              </div>
+            </div>
+          </div>
+          <p class="assumptions-note"><span class="assumptions-icon">i</span><span><strong>About this estimate.</strong> Electricity uses a national grid average. Car, flight, and food values are broad reference assumptions. Home heating, public transport, shopping, services, and shared vehicle occupancy are not included.</span></p>
+        </section>
+
+        <section class="sources-row" aria-label="Data sources">
+          <div><span class="source-spark">✳</span><p><strong>Built from open climate data.</strong> Location search, grid factors, and the calculation method stay visible so you can judge the estimate.</p></div>
+          <a href="#methodology">See how this works <span>↗</span></a>
+        </section>
+
+        <details class="methodology panel" id="methodology">
+          <summary>Sources &amp; methodology <span class="details-plus" aria-hidden="true">+</span></summary>
+          <div class="methodology-body">
+            <p><strong>Place search:</strong> <a href="https://open-meteo.com/en/docs/geocoding-api" target="_blank" rel="noreferrer">Open-Meteo’s global geocoding API</a>, with location data based on GeoNames. GPS lookup is only requested after you tap Detect and uses <a href="https://www.bigdatacloud.com/docs/api-domains" target="_blank" rel="noreferrer">BigDataCloud’s free client-side reverse-geocoding endpoint</a>.</p>
+            <p><strong>Electricity:</strong> the latest grid-generation lifecycle intensity with broad country coverage from <a href="https://ember-energy.org/data/yearly-electricity-data/" target="_blank" rel="noreferrer">Ember Yearly Electricity Data</a>, served through the <a href="https://carbondata.dev/docs/reference/" target="_blank" rel="noreferrer">Carbon Data API</a>. If a country has no recent factor, the app uses the world average and labels it.</p>
+            <p><strong>Other activities:</strong> car and flight values use <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2026" target="_blank" rel="noreferrer">average 2026 UK government conversion factors</a> as a reference; electric-car use is estimated from the selected country’s grid intensity. Flights use average short- and long-haul return distances with aviation effects included. Food uses starter estimates of 1.3, 2.1, or 3.1 tonnes per year by selected pattern.</p>
+            <p><strong>Privacy:</strong> the app stores entered calculator values and cached public grid factors on this device. It does not store your GPS coordinates. A typed location is sent to Open-Meteo for search; live coordinates are sent to BigDataCloud only after you choose GPS detection.</p>
+          </div>
+        </details>
+      </main>
+
+      <footer class="footer">
+        <a class="footer-brand" href="#top">fieldnote <span>·</span> carbon, in context</a>
+        <p>Good data is a beginning. Better choices happen close to home.</p>
+        <a href="#top" class="back-top">BACK TO TOP ↑</a>
+      </footer>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
